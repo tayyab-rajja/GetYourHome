@@ -1,0 +1,25 @@
+<%= link_to 'See Users'.html_safe, users_path(), class: 'btn btn-success float-end' %>
+<h1>All Properties</h1>
+
+
+<ul class="list-group">
+  <% @properties.each do |property| %>
+    <li class="list-group-item">
+      <%= link_to property.name, property_path(property) %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="pagination">
+  <% unless @page == 1 %>
+    <%= link_to '&laquo; Previous'.html_safe, properties_path(page: @page - 1), class: 'btn btn-primary' %>
+  <% else %>
+    <%= content_tag :span, '&laquo; Previous'.html_safe, class: 'btn btn-primary disabled' %>
+  <% end %>
+  
+  <% unless @page == @max_page %>
+    <%= link_to 'Next &raquo;'.html_safe, properties_path(page: @page + 1), class: 'btn btn-primary' %>
+  <% else %>
+    <%= content_tag :span, 'Next &raquo;'.html_safe, class: 'btn btn-primary disabled' %>
+  <% end %>
+</div>

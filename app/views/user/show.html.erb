@@ -1,0 +1,39 @@
+<h1>User Details</h1>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>Name:</th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th>Email:</th>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th>Location:</th>
+      <td><%= @user.city %>, <%= @user.state %> <%= @user.country_code %></td>
+    </tr>
+    <tr>
+      <th>Interests:</th>
+      <td><%= @user.interests.join(", ") %></td>
+    </tr>
+    <tr>
+      <th>Properties:</th>
+      <td>
+        <% @properties.each do |property| %>
+          <div class="row">
+            <div class="col-md-3">
+              <%= image_tag property.primary_photo_url, class: "img-thumbnail" %>
+            </div>
+            <div class="col-md-9">
+              <h4><%= link_to property.name, property_path(property) %></h4>
+              <p><%= property.description.truncate(300) %></p>
+              <p><%= number_to_percentage(property.user_property_scores.where(user_id: @user.id).first.score * 100, precision: 0) %> match</p>
+            </div>
+          </div>
+          <hr>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
